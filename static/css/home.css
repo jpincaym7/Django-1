@@ -1,0 +1,41 @@
+/* Archivo: custom.css */
+
+/* Ajustes generales */
+body {
+    background-color: #f8f9fa;
+}
+
+h2 {
+    color: #343a40;
+    font-weight: 700;
+}
+
+/* Sección de productos, marcas y categorías */
+.products-section, .brands-section, .categories-section {
+    margin-bottom: 40px;
+}
+
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+/* Sección de videos */
+.video-container {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+}
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

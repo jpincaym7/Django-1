@@ -1,0 +1,72 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+    overflow: hidden;
+}
+
+.container {
+    max-width: 400px; /* Reducido el ancho del contenedor */
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px; /* Reducido el margen inferior */
+}
+
+.form-group label {
+    font-size: 16px; /* Reducido el tamaño de la fuente */
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px; /* Reducido el relleno */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px; /* Reducido el tamaño de la fuente */
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 12px; /* Reducido el tamaño de la fuente */
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #337ab7;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #23527c;
+}

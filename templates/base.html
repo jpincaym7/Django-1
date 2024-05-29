@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ title1 }}{% endblock title %}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <style>
+    /* Estilo para el dropdown con flechas sin fondos */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropbtn {
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Estilo para la flecha */
+    .dropdown .dropbtn i {
+        margin-left: 5px;
+    }
+</style>
+
+</head>
+<body>
+  <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
+  <div id="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="user-profile">
+      <div style="display: flex; align-items: center;">
+        {% if request.user.profile.image %}
+          <img src="{{ request.user.profile.image.url }}" alt="Profile Image" class="profile-image">
+        {% endif %}
+        <p style="margin: 10px; font-size: 20px;" class="username">{{ request.user.username }}</p>
+      </div>
+      <div class="user-actions">
+        <a href="{% url 'core:edit' %}">Editar</a>
+        <a href="{% url 'core:logout' %}">Cerrar Sesión</a>
+      </div>
+    </div>
+    <span class="logo">Crud</span>
+    <a href="{% url 'core:home' %}">Inicio</a>
+    <a href="{% url 'core:product_list' %}">Productos</a>
+    <a href="{% url 'core:brand_list' %}">Marcas</a>
+    <a href="{% url 'core:supplier_list' %}">Proveedores</a>
+    <!-- Categorías con submenús -->
+    <div class="dropdown">
+      <button class="dropbtn">Categorías <i class="fas fa-chevron-down"></i></button>
+      <div class="dropdown-content">
+          <a href="{% url 'core:category_list' %}">Todas las Categorías</a>
+          <a href="{% url 'core:category' %}?categorie=1">Ropa</a>
+          <a href="{% url 'core:category' %}?categorie=2">Electrónica</a>
+          <a href="{% url 'core:category' %}?categorie=3">Mobiles</a>
+          <!-- Añade más categorías según sea necesario -->
+      </div>
+  </div>
+  </div>
+
+  <div id="main">
+    <main id="content">
+      {% block content %}
+      <!-- Page content will be injected here -->
+      {% endblock content %}
+    </main>
+  </div>
+
+  <!-- Incluye la versión completa de jQuery antes de Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function openNav() {
+      $("#sidebar").css("width", "250px");
+      $("#main").css("margin-left", "250px");
+    }
+
+    function closeNav() {
+      $("#sidebar").css("width", "0");
+      $("#main").css("margin-left", "0");
+    }
+  </script>
+  <script>
+    $(document).ready(function() {
+        var userContainer = $(".user-profile");
+        var userActions = $(".user-actions");
+
+        userContainer.on("click", function() {
+            userActions.toggleClass("show-actions");
+            if (userActions.hasClass("show-actions")) {
+                userContainer.css("margin-bottom", userActions.outerHeight() + "px");
+            } else {
+                userContainer.css("margin-bottom", "0");
+            }
+        });
+    });
+  </script>
+
+  {% block extra_js %}
+  <!-- Extra JS can be incluido here by child templates -->
+  {% endblock extra_js %}
+</body>
+</html>

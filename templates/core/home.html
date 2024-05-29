@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load static %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<section class="main-content container my-5">
+    <h2>Home</h2>
+    <div class="row">
+        <!-- Productos Section -->
+        <div class="col-md-12">
+            <div class="row align-items-center mb-4">
+                <div class="col-md-8">
+                    <h2>Productos</h2>
+                    <div class="products-container row">
+                        {% for prod in products %}
+                            <div class="product-card col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">{{ prod.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="video-container">
+                        <video class="w-100" autoplay muted loop>
+                            <source src="{% static 'video/inf.mp4' %}" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brands Section -->
+        <div class="col-md-12">
+            <div class="row align-items-center mb-4">
+                <div class="col-md-8">
+                    <h2>Marcas</h2>
+                    <div class="brands-container row">
+                        {% for brand in brands %}
+                            <div class="brand-card col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">{{ brand.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="video-container">
+                        <video class="w-100" autoplay muted loop>
+                            <source src="{% static 'video/brands.mp4' %}" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="col-md-12">
+            <div class="row align-items-center mb-4">
+                <div class="col-md-8">
+                    <h2>Categoría</h2>
+                    <div class="categories-container row">
+                        {% for cat in category %}
+                            <div class="category-card col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">{{ cat.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="video-container">
+                        <video class="w-100" autoplay muted loop>
+                            <source src="{% static 'video/category.mp4' %}" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
+

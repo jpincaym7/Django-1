@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h2 class="title">{{ title2 }}</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == "categories" %}  {# Verifica si es el campo de categorías #}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <select name="{{ field.name }}" id="{{ field.id_for_label }}">
+                            {% for category in field.field.queryset %}
+                                <option value="{{ category.pk }}">{{ category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn blue">
+                <a href="{% url 'core:product_list' %}" class="btn red"> Cancelar </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
