@@ -8,43 +8,7 @@ from django.core.exceptions import ValidationError
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['description', 'price', 'stock', 'brand', 'categories', 'line', 'supplier', 'expiration_date', 'image', 'state']
-        widgets = {
-            'expiration_date': forms.DateInput(attrs={'type': 'date'}),  # Widget para elegir la fecha
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(ProductForm, self).__init__(*args, **kwargs)
-        self.is_update = kwargs.get('instance') is not None
-        # Si estamos actualizando, establecer los valores iniciales de los campos
-        if self.is_update:
-            instance = kwargs.get('instance')
-            self.fields['description'].initial = instance.description
-            self.fields['price'].initial = instance.price
-            self.fields['stock'].initial = instance.stock
-            self.fields['brand'].initial = instance.brand
-            self.fields['categories'].initial = instance.categories.all()  # Para campos ManyToManyField
-            self.fields['line'].initial = instance.line
-            self.fields['supplier'].initial = instance.supplier
-            self.fields['expiration_date'].initial = instance.expiration_date
-            self.fields['image'].initial = instance.image
-            self.fields['state'].initial = instance.state
-
-
-    def clean(self):
-        cleaned_data = super().clean()
-        description = cleaned_data.get('description')
-        if not self.is_update and Product.objects.filter(description=description).exists():
-            raise forms.ValidationError("Ya existe un producto con esta descripción.")
-        # Agrega aquí tus otras validaciones personalizadas si es necesario
-        return cleaned_data
-
-    def save(self, commit=True):
-        if not self.is_update:
-            # Si no es una actualización, estamos creando un nuevo producto
-            return super(ProductForm, self).save(commit=commit)
-        # Si es una actualización, simplemente guardamos la instancia actualizada
-        return super(ProductForm, self).save(commit=commit)
+        exclude = ['cost', 'user']
 
     
 class BrandForm(forms.ModelForm):
