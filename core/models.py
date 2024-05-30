@@ -223,7 +223,7 @@ class InvoiceDetail(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='profiles/', blank=True, null=True)
+    image = models.ImageField(upload_to='profiles/', default="profiles/default.png")
     # Otros campos adicionales de perfil, como biografía, fecha de nacimiento, etc.
 
     def __str__(self):

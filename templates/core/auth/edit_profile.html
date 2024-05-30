@@ -1,17 +1,32 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Editar Perfil</title>
     <!-- Incluye Bootstrap CSS para los estilos de formulario -->
+    {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="icon" href="{% static 'fonts/login.ico' %}" type="image/x-icon">
 </head>
 <body>
+    <video autoplay muted loop id="video-bg">
+        <source src="{% static 'img/background.mp4' %}" type="video/mp4">
+        <!-- Add more <source> for other video formats -->
+        Your browser does not support the video element.
+    </video>
     <div class="container mt-5">
         <h2 class="mb-4">Editar Perfil</h2>
+        <!-- Message Display -->
+        {% if messages %}
+            <div class="messages">
+                <ul>
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         <form id="msform" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset>

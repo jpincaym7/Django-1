@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from core.forms import ProductForm
 from core.models import Product
+from django.contrib import messages
 
 def product_List(request):
     data = {
@@ -28,7 +29,10 @@ def product_create(request):
             product.user = request.user
             product.save()  # Guarda la instancia del producto
             form.save_m2m()  # Guarda las relaciones many-to-many
+            messages.success(request, ('EL PRODUCTO SE HA CREADO CON EXITO'))
             return redirect("core:product_list")
+        else:
+            messages.error(request, "NO ES POSIBLE CREAR EL PRODUCTO")
     else:
         form = ProductForm()
     
@@ -42,10 +46,11 @@ def product_update(request, id):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
+            messages.success(request, ('EL PRODUCTO SE HA ACTUALIZADO CON EXITO'))
             return redirect("core:product_list")
     else:
         form = ProductForm(instance=product)
-        data["form"] = form
+    data["form"] = form
     return render(request, "core/products/form.html", data)
 
 def product_delete(request, id):
@@ -53,6 +58,7 @@ def product_delete(request, id):
     data = {"title1": "Eliminar", "title2": "Eliminar Un Producto", "product": product}
     if request.method == "POST":
         product.delete()
+        messages.success(request, ('EL PRODUCTO SE HA ELIMINADO CON EXITO'))
         return redirect("core:product_list")
     return render(request, "core/products/delete.html", data)    
 

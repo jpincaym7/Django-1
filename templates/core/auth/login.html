@@ -1,48 +1,34 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Iniciar Sesión</title>
-    <!-- Incluye Bootstrap CSS para los estilos de formulario -->
+    <!-- Include Bootstrap CSS for form styles and alerts -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="icon" href="{% static 'fonts/login.ico' %}" type="image/x-icon">
-    <style>
-        /* Estilo para el video de fondo */
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        
-        #video-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        /* Estilos adicionales para el diseño del formulario */
-        .container {
-            position: relative;
-            z-index: 1;
-            height: 100%; /* Ajusta la altura del contenedor para que ocupe toda la pantalla */
-        }
-    </style>
 </head>
 <body>
     <video autoplay muted loop id="video-bg">
         <source src="{% static 'img/background.mp4' %}" type="video/mp4">
-        <!-- Añade más <source> para otros formatos de video -->
-        Tu navegador no soporta el elemento de video.
+        <!-- Add more <source> for other video formats -->
+        Your browser does not support the video element.
     </video>
     <div class="container mt-5">
         <h2 class="mb-4" style="color: white;">Iniciar Sesión</h2>
+        
+        <!-- Error Message Alerts -->
+        {% for message in messages %}
+            <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="error-message">{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}       
+        
+        
         <form id="msform" method="post">
             {% csrf_token %}
             <fieldset>
@@ -55,9 +41,21 @@
         </form>
     </div>
 
-    <!-- Incluye Bootstrap JS y dependencias Popper.js -->
+    <!-- Include Bootstrap JS and Popper.js via CDN -->
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Ajusta la posición de la alerta al centrarla verticalmente sobre el formulario
+        $(document).ready(function() {
+            var formHeight = $('.container').height();
+            var alertHeight = $('#error-alert').height();
+            var marginTop = (formHeight - alertHeight) / 2;
+            $('#error-alert').css('margin-top', marginTop + 'px');
+        });
+    </script>
 </body>
 </html>
+
+

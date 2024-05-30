@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from core.forms import BrandForm
 from core.models import Brand
 
@@ -20,7 +21,10 @@ def brand_create(request):
             brand = form.save(commit=False)
             brand.user = request.user
             brand.save()
+            messages.success(request, ('Se ha creado correctamente'))
             return redirect("core:brand_list")
+        else:
+            messages.error(request, 'Error al crear la marca')
     else:
         form = BrandForm()
     data["form"] = form
@@ -33,10 +37,13 @@ def brand_update(request, id):
         form = BrandForm(request.POST, request.FILES, instance=brand)
         if form.is_valid():
             form.save()
+            messages.success(request, '¡Marca actualizada exitosamente!')
             return redirect("core:brand_list")
+        else:
+            messages.error(request, 'Por favor, corrige los errores del formulario.')
     else:
         form = BrandForm(instance=brand)
-        data["form"] = form
+    data["form"] = form
     return render(request, "core/brands/form.html", data)
 
 def brand_eliminate(request, id):
@@ -44,6 +51,7 @@ def brand_eliminate(request, id):
     data = {"title1": "Productos", "title2": "Edición De Productos", "Marca": brand}
     if request.method == "POST":
         brand.delete()
+        messages.success(request, '¡Marca eliminada exitosamente!')
         return redirect("core:brand_list")
     else:
         return render(request, "core/brands/delete.html", data)

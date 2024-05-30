@@ -282,7 +282,7 @@ a:hover {
     padding: 15px;
     border: 1px solid #dc3545;
     border-radius: 8px;
-    background-color: #f8d7da;
+    background-color: #d7f8da;
     color: #721c24;
     max-width: 600px;
     text-align: center;
@@ -367,3 +367,19 @@ a:hover {
   .btn.red:hover {
     background-color: #901921;
   }
+
+  .alert-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #721c24;
+    color: white;
+    z-index: 10000;
+    width: 100%;
+    max-width: 600px;
+}
+.form-container {
+    margin-top: 80px;
+}
+

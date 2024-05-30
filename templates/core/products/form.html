@@ -1,17 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <div class="container">
+    <!-- Message Display -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="form-container">
         <h2 class="title">{{ title2 }}</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
-                {% if field.name == "categories" %}  {# Verifica si es el campo de categorías #}
+                {% if field.name == "categories" %}
                     <div class="form-group">
                         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        <select name="{{ field.name }}" id="{{ field.id_for_label }}">
+                        <select name="{{ field.name }}" id="{{ field.id_for_label }}" multiple>
                             {% for category in field.field.queryset %}
-                                <option value="{{ category.pk }}">{{ category }}</option>
+                                <option value="{{ category.pk }}" 
+                                    {% if category.pk in form.initial.categories %}
+                                        selected
+                                    {% endif %}>
+                                    {{ category }}
+                                </option>
                             {% endfor %}
                         </select>
                     </div>
